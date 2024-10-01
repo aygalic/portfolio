@@ -20,17 +20,23 @@ jobs:
           node-version: '18'
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: |
+          cd nextjs-blog
+          yarn install --frozen-lockfile
 
       - name: Build
-        run: yarn build
+        run: |
+          cd nextjs-blog
+          yarn build
 
       - name: Add .nojekyll file
-        run: touch out/.nojekyll
+        run: |
+          cd nextjs-blog
+          touch out/.nojekyll
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         if: ${{ github.ref == 'refs/heads/main' }}
         with:
-          personal_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./out
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./nextjs-blog/out
