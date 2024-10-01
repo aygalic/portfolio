@@ -2,7 +2,9 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [main]  # Set a branch name to trigger deployment
+    branches: [main]
+  pull_request:
+    branches: [main]
 
 jobs:
   deploy:
@@ -27,12 +29,25 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
-      - run: yarn install --frozen-lockfile
-      - run: yarn build
-      - run: touch out/.nojekyll
+      - name: Install dependencies
+        run: |
+          cd nextjs-blog
+          yarn install --frozen-lockfile
+
+      - name: Build
+        run: |
+          cd nextjs-blog
+          yarn build
+
+      - name: Export
+        run: |
+          cd nextjs-blog
+          yarn export
+          touch out/.nojekyll
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
+        if: ${{ github.ref == 'refs/heads/main' }}
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./out
+          publish_dir: ./nextjs-blog/out
