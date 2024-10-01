@@ -28,7 +28,7 @@ export default function Home() {
             <p>Identification of Molecular Biomarkers for Sjögren’s Disease Stratification via a Deep Learning Foundation Model Dedicated to Immune-Mediated and Inflammatory Disease.</p>
           </a>
 
-          <a href="https://www.politesi.polimi.it/handle/10589/214686" className={styles.card}>
+          <a href="https://hdl.handle.net/10589/214686" className={styles.card}>
             <h3>My Thesis &rarr;</h3>
             <p>Genetic algorithm-driven auto-encoders: unraveling complex patterns in Parkinson's and breast cancer data</p>
           </a>
