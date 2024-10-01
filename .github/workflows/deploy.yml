@@ -39,10 +39,9 @@ jobs:
           cd nextjs-blog
           yarn build
 
-      - name: Export
+      - name: Add .nojekyll file
         run: |
           cd nextjs-blog
-          yarn export
           touch out/.nojekyll
 
       - name: Deploy
