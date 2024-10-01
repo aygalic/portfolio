@@ -25,7 +25,7 @@ export default function Home() {
 
           <a href="https://acrabstracts.org/abstract/identification-of-molecular-biomarkers-for-sjogrens-disease-stratification-via-a-deep-learning-foundation-model-dedicated-to-immune-mediated-and-inflammatory-disease/" className={styles.card}>
             <h3>My first peer reviewed paper! &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
+            <p>Identification of Molecular Biomarkers for Sjögren’s Disease Stratification via a Deep Learning Foundation Model Dedicated to Immune-Mediated and Inflammatory Disease.</p>
           </a>
 
           <a href="https://www.politesi.polimi.it/handle/10589/214686" className={styles.card}>
