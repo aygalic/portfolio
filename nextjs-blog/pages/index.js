@@ -8,59 +8,39 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Create Next App</title>
+        <title>Aygalic Jara</title>
         <link rel="icon" href={`${basePath}/favicon.ico`} />
       </Head>
 
       <main>
         <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
+          Welcome to my portfolio site.
         </h1>
 
         <p className={styles.description}>
-          Get started by editing <code>pages/index.js</code>
+          Find out about my latest work!
         </p>
 
         <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
+
+          <a href="https://acrabstracts.org/abstract/identification-of-molecular-biomarkers-for-sjogrens-disease-stratification-via-a-deep-learning-foundation-model-dedicated-to-immune-mediated-and-inflammatory-disease/" className={styles.card}>
+            <h3>My first peer reviewed paper! &rarr;</h3>
             <p>Find in-depth information about Next.js features and API.</p>
           </a>
 
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
+          <a href="https://www.politesi.polimi.it/handle/10589/214686" className={styles.card}>
+            <h3>My Thesis &rarr;</h3>
+            <p>Genetic algorithm-driven auto-encoders: unraveling complex patterns in Parkinson's and breast cancer data</p>
           </a>
 
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
 
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
         </div>
       </main>
 
       <footer>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <Image src={`${basePath}/vercel.svg`} alt="Vercel" width={72} height={16} />
-        </a>
+        <p>
+          Built with Next.js
+        </p>
       </footer>
 
       <style jsx>{`
