@@ -9,6 +9,8 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      NEXT_PUBLIC_BASE_PATH: /portfolio
     steps:
       - uses: actions/checkout@v2
 
@@ -17,36 +19,18 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Get yarn cache
-        id: yarn-cache
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-
-      - name: Cache dependencies
-        uses: actions/cache@v2
-        with:
-          path: ${{ steps.yarn-cache.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
-
       - name: Install dependencies
-        run: |
-          cd nextjs-blog
-          yarn install --frozen-lockfile
+        run: yarn install --frozen-lockfile
 
       - name: Build
-        run: |
-          cd nextjs-blog
-          yarn build
+        run: yarn build
 
       - name: Add .nojekyll file
-        run: |
-          cd nextjs-blog
-          touch out/.nojekyll
+        run: touch out/.nojekyll
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         if: ${{ github.ref == 'refs/heads/main' }}
         with:
-          personal_token: ${{ secrets.PAT }}
-          publish_dir: ./nextjs-blog/out
+          personal_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./out

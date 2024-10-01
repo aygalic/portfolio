@@ -1,12 +1,15 @@
 import Head from 'next/head';
+import Image from 'next/image';
 import styles from '../styles/Home.module.css';
 
 export default function Home() {
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
+
   return (
     <div className={styles.container}>
       <Head>
         <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href={`${basePath}/favicon.ico`} />
       </Head>
 
       <main>
@@ -56,8 +59,7 @@ export default function Home() {
           rel="noopener noreferrer"
         >
           Powered by{' '}
-          <img src="./vercel.svg" alt="Vercel" className={styles.logo} />
-
+          <Image src={`${basePath}/vercel.svg`} alt="Vercel" width={72} height={16} />
         </a>
       </footer>
 
