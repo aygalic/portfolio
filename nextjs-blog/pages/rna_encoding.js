@@ -1,7 +1,6 @@
 import Head from 'next/head';
 import Image from 'next/image';
 import styles from '../styles/Home.module.css';
-//import '../../nextjs-blog/styles/global.css';
 
 export default function Home() {
   const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
@@ -23,6 +22,10 @@ export default function Home() {
         </p>
 
         <iframe src="https://aygalic.github.io/biosequence_encoding/pca_animation.html" title="description" className={styles.subframe}></iframe>
+
+        <p className={styles.description}>
+          You can find the code used to build this dynamic representation <a href="https://github.com/aygalic/biosequence_encoding/" >here</a> as well as its <a href="https://aygalic.github.io/biosequence_encoding/">documentation</a>. 
+        </p>
 
       </main>
 
