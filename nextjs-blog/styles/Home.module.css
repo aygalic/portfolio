@@ -90,3 +90,12 @@
     flex-direction: column;
   }
 }
+
+
+.subframe {
+  width: 80vw;
+  height: 45vw; /* 16:9 aspect ratio */
+  max-width: 80%;
+  margin: 0 auto;
+  display: block;
+}
