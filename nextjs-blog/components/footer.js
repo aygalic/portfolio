@@ -5,11 +5,11 @@ export function Footer() {
   return (
     <footer className={styles.footer}>
       <nav className={styles.nav}>
-      <Link href="/" className={styles.homeLink} >
+      <Link href="https://github.com/aygalic" className={styles.homeLink} >
           github
         </Link>
         
-        <Link href="/" className={styles.homeLink} >
+        <Link href="https://www.linkedin.com/in/aygalic/" className={styles.homeLink} >
           LinkedIn
         </Link>
       </nav>
