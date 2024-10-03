@@ -104,6 +104,19 @@
   display: block;
 }
 
+.logoContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-start;
+}
+
+.logo {
+  height: 100px;
+  width: auto;
+  object-fit: contain;
+}
+
 .container {
   min-height: 100vh;
   display: flex;
