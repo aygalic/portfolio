@@ -2,7 +2,6 @@
     width: 100%;
     border-bottom: 1px solid #eaeaea;
     top: 0;
-    z-index: 1000;
   }
   
   .nav {
@@ -11,15 +10,14 @@
     padding: 1rem 2rem;
     display: flex;
     justify-content: space-between;
-    align-items: center;
   }
   
   .homeLink {
     font-size: 1.3rem;
-
     color: #333;
     text-decoration: none;
     transition: color 0.3s ease;
+    padding: 1rem 1rem;
   }
   
   .homeLink:hover {

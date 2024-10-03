@@ -1,0 +1,31 @@
+.footer {
+  width: 100%;
+  border-top: 1px solid #eaeaea;
+  display: flex;
+}
+
+.nav {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.homeLink {
+  font-size: 1.3rem;
+  padding: 1rem;
+  color: #333;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.homeLink:hover {
+  color: #0070f3;
+}
+
+@media (max-width: 768px) {
+  .nav {
+    padding: 1rem;
+  }
+}
