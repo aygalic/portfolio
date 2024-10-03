@@ -19,16 +19,17 @@ export default function Home() {
         <h1 className={styles.title}>
           Aygalic Jara
         </h1>
+        
         <div className={styles.logoContainer}>
           <Image
-            src="/polimi.png"
+            src={`${basePath}/polimi.png`}
             alt="my desk"
             width={817}
             height={208}
             className={styles.logo}
           />
           <Image
-            src="/centrale_nantes.png"
+            src={`${basePath}/centrale_nantes.png`}
             alt="my desk"
             width={1830}
             height={1033}
