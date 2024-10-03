@@ -20,11 +20,13 @@ export default function Home() {
           Aygalic Jara
         </h1>
         <h2>
-          My best projects!
+          Machine Learning Engineer 
         </h2>
 
         <p className={styles.description}>
-          Find out about my latest work!
+        Fresh graduate from a double degree between Ecole Centrale de Nantes and Politecnico di Milano.
+        <br/>
+        I have studied statistics, machine learning and their application to life science to be part of a change that matters to me.
         </p>
 
         <div className={styles.grid}>
