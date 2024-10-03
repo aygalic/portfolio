@@ -22,7 +22,7 @@ export default function Home() {
         </h1>
 
         <p className={styles.description}>
-          The evolution of the latent representation of BRCA data throughout the training procedure!
+          The evolution of the latent representation of BRCA data throughout the training procedure.
         </p>
 
         <h2>Background</h2>
