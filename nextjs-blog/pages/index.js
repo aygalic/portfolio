@@ -57,6 +57,11 @@ export default function Home() {
             <h3> ★ Machine Learning applied to Transcriptomic data &rarr;</h3>
             <p>Evolution of latent representation of BRCA data through encoder over the training procedure.</p>
           </a>
+          <a href={`${basePath}/tiny_llama`} className={styles.card}>
+            <h3> ★ Quantizing LLM to make a super lightweight interface &rarr;</h3>
+            <p>Using Llama 3.2 1B with quantization to summarize wikipedia article.</p>
+          </a>
+
         </div>
       </main>
       <Footer />
