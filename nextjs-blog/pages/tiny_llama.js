@@ -58,7 +58,7 @@ async function getLLMSummary(content) {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ item: `Summarize the following article: ${content}` }),
+      body: JSON.stringify({ item: `Make a very concise summary of the following article: ${content}` }),
     });
     
     const data = await response.json();
@@ -127,26 +127,25 @@ export default function LLMDemo() {
           LLM.
         </h1>
 
-        <div className="fixed inset-0 flex items-center justify-center bg-gray-100 p-4">
-          <div className="w-full max-w-4xl h-3/4 bg-white rounded-lg shadow-lg overflow-hidden">
-            <div className="flex justify-between items-center p-4 bg-blue-500 text-white">
-              <h2 className="text-xl font-bold">Random Wikipedia Article</h2>
+        <div  >
+          <div >
+            <div >
+              <h2>Random Wikipedia Article</h2>
               <button 
                 onClick={fetchRandomArticle}
-                className="px-4 py-2 bg-white text-blue-500 rounded hover:bg-blue-100 transition-colors"
               >
                 New Article
               </button>
             </div>
-            <div className="h-full">
+            <div>
               {loading ? (
-                <div className="flex items-center justify-center h-full">
-                  <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-500"></div>
+                <div className={styles.subframe}>
+
                 </div>
               ) : (
                 <iframe 
                   src={articleUrl} 
-                  className="w-full h-full border-none"
+                  className={styles.subframe}
                   title="Random Wikipedia Article"
                 />
               )}
@@ -154,24 +153,26 @@ export default function LLMDemo() {
           </div>
         </div>
 
-        <div className="mt-8 p-4 bg-white rounded-lg shadow-lg">
-          <h3 className="text-xl font-bold mb-4">Article Content</h3>
-          <div className="max-h-96 overflow-y-auto mb-4">
+        <div className={styles.subframe}>
+          <h3>Article Content</h3>
+          <div>
             {loading ? 'Loading...' : articleContent}
           </div>
           <button 
             onClick={handleSummarize}
             disabled={loading || summarizing}
-            className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition-colors disabled:bg-gray-400"
-          >
+            >
             {summarizing ? 'Summarizing...' : 'Summarize with LLM'}
           </button>
         </div>
+        <br/>
+        <br/>
+        <br/>
 
         {llmSummary && (
-          <div className="mt-8 p-4 bg-white rounded-lg shadow-lg">
-            <h3 className="text-xl font-bold mb-4">LLM Summary</h3>
-            <div className="max-h-96 overflow-y-auto">
+          <div className={styles.subframe}>
+            <h3 >LLM Summary</h3>
+            <div>
               {llmSummary}
             </div>
           </div>
