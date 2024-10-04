@@ -3,14 +3,120 @@ import Image from 'next/image';
 import styles from '../styles/Home.module.css';
 import { Header } from '../components/header'
 import { Footer } from '../components/footer'
+import { useState, useEffect } from 'react';
+
+async function getRandomWikipediaArticle() {
+  const url = "https://en.wikipedia.org/w/api.php";
+  const params = new URLSearchParams({
+    origin: '*',
+    action: "query",
+    format: "json",
+    list: "random",
+    rnlimit: "1",
+    rnnamespace: "0"
+  });
+
+  try {
+    const response = await fetch(`${url}?${params}`);
+    const data = await response.json();
+    const title = data.query.random[0].title;
+    const articleUrl = `https://en.wikipedia.org/wiki/${encodeURIComponent(title)}`;
+    return { title, articleUrl };
+  } catch (error) {
+    console.error('Error fetching random Wikipedia article:', error);
+    return null;
+  }
+}
+
+async function getArticleContent(title) {
+  const url = "https://en.wikipedia.org/w/api.php";
+  const params = new URLSearchParams({
+    origin: '*',
+    action: "query",
+    format: "json",
+    titles: title,
+    prop: "extracts",
+    explaintext: "true",
+    exsectionformat: "plain"
+  });
+
+  try {
+    const response = await fetch(`${url}?${params}`);
+    const data = await response.json();
+    const page = Object.values(data.query.pages)[0];
+    return page.extract;
+  } catch (error) {
+    console.error('Error fetching article content:', error);
+    return null;
+  }
+}
+
+async function getLLMSummary(content) {
+  try {
+    const response = await fetch('https://aygalic-tiny-llama.hf.space/llm_on_cpu', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ item: `Summarize the following article: ${content}` }),
+    });
+    
+    const data = await response.json();
+    console.log('Full API response:', data);  // Log the full response
+
+    if (data) {
+      return data;
+    } else {
+      console.error('Unexpected API response structure:', data);
+      return null;
+    }
+  } catch (error) {
+    console.error('Error getting LLM summary:', error);
+    return null;
+  }
+}
+
+
+
 
 export default function LLMDemo() {
   const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
+  const [articleUrl, setArticleUrl] = useState('');
+  const [articleContent, setArticleContent] = useState('');
+  const [llmSummary, setLlmSummary] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [summarizing, setSummarizing] = useState(false);
 
-  return (
+  useEffect(() => {
+    fetchRandomArticle();
+  }, []);
+
+  const fetchRandomArticle = async () => {
+    setLoading(true);
+    setLlmSummary('');
+    const result = await getRandomWikipediaArticle();
+    if (result) {
+      setArticleUrl(result.articleUrl);
+      const content = await getArticleContent(result.title);
+      setArticleContent(content || 'Failed to load article content.');
+    }
+    setLoading(false);
+  };
+
+  // Update the handleSummarize function to log more information
+  const handleSummarize = async () => {
+    setSummarizing(true);
+    console.log('Sending article content to LLM:', articleContent.substring(0, 500) + '...');  // Log the first 500 characters of the content
+    const summary = await getLLMSummary(articleContent);
+    console.log('Received summary:', summary);
+    setLlmSummary(summary || 'Failed to generate summary.');
+    setSummarizing(false);
+  };
+
+    return (
     <div className={styles.container}>
       <Head>
-        <title>Encoding RNA data</title>
+        <title>Tiny Llama</title>
         <link rel="icon" href={`${basePath}/favicon.ico`} />
       </Head>
 
@@ -18,60 +124,61 @@ export default function LLMDemo() {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Encoding RNA data.
+          LLM.
         </h1>
 
-        <p className={styles.description}>
-          The evolution of the latent representation of BRCA data throughout the training procedure.
-        </p>
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-100 p-4">
+          <div className="w-full max-w-4xl h-3/4 bg-white rounded-lg shadow-lg overflow-hidden">
+            <div className="flex justify-between items-center p-4 bg-blue-500 text-white">
+              <h2 className="text-xl font-bold">Random Wikipedia Article</h2>
+              <button 
+                onClick={fetchRandomArticle}
+                className="px-4 py-2 bg-white text-blue-500 rounded hover:bg-blue-100 transition-colors"
+              >
+                New Article
+              </button>
+            </div>
+            <div className="h-full">
+              {loading ? (
+                <div className="flex items-center justify-center h-full">
+                  <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-500"></div>
+                </div>
+              ) : (
+                <iframe 
+                  src={articleUrl} 
+                  className="w-full h-full border-none"
+                  title="Random Wikipedia Article"
+                />
+              )}
+            </div>
+          </div>
+        </div>
 
-        <h2>Background</h2>
-        <p className={styles.text}>
-          Transcriptomic (RNAseq) data is very high dimensional and difficult to deal with using classical statistical techniques.
-          Autoencoder, a kind of neural network that focuses on reconstructing the input through a bottleneck have been of tremendous help tackling this issue.
-          They enable us to work with smaller representations, enabling subsequent stratification, inference and visualizations.
-        </p>
+        <div className="mt-8 p-4 bg-white rounded-lg shadow-lg">
+          <h3 className="text-xl font-bold mb-4">Article Content</h3>
+          <div className="max-h-96 overflow-y-auto mb-4">
+            {loading ? 'Loading...' : articleContent}
+          </div>
+          <button 
+            onClick={handleSummarize}
+            disabled={loading || summarizing}
+            className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition-colors disabled:bg-gray-400"
+          >
+            {summarizing ? 'Summarizing...' : 'Summarize with LLM'}
+          </button>
+        </div>
 
-
-        <h2>Method</h2>
-        <p className={styles.text}>
-          I implemented a highly modular auto encoder approach where different part can be swapped out, assessing the performance of multiple approaches. 
-          Such modules go from the type of layers we use (conventional multi layer perceptron (MLP), as well as convolutional neural network (CNN)) to the type of latent space we implement.
-          The following approach were considered : No variational approach, Variational Autoencoder (VAE) and Vector-Quantized VAE (VQ-VAE).
-
-        </p>
-
-        <h2>Results</h2>
-
-        <iframe src="https://aygalic.github.io/biosequence_encoding/pca_animation.html" title="description" className={styles.subframe}></iframe>
-
-        <p className={styles.text}>
-          Each point correspond to the patient representation through the encoder at different steps of the training process.
-
-          This is achieved by training an auto encoder over RNAseq data from ~1200 patients provided openly by the TCGA project.
-          At a given set of steps, we compute the PCA projection of the latent representation of the whole dataset and then put everything together in a nice smooth animation.
-        
-        </p>
-
-        <h2>Going further</h2>
-        <p className={styles.text}>
-          Some automatic parameter search methods have been implemented. This was the goal of my thesis, where I assess the clustering capabilities on one dataset with a set of hyperparameter. 
-          I would then use those same hyper parameters on a different set, with similar processing steps, hoping to discover an underlying structure within the target dataset.
-
-
-          <br/>
-          <br/>
-
-          You can find the code used to build this dynamic representation and more <a href="https://github.com/aygalic/biosequence_encoding/" >on my github</a> as well as its <a href="https://aygalic.github.io/biosequence_encoding/">documentation</a>. 
-
-
-        </p>
-
-
+        {llmSummary && (
+          <div className="mt-8 p-4 bg-white rounded-lg shadow-lg">
+            <h3 className="text-xl font-bold mb-4">LLM Summary</h3>
+            <div className="max-h-96 overflow-y-auto">
+              {llmSummary}
+            </div>
+          </div>
+        )}
       </main>
 
       <Footer />
-
     </div>
   );
 }
