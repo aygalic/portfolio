@@ -117,7 +117,7 @@ export default function LLMDemo() {
     <div className={styles.container}>
       <Head>
         <title>Tiny Llama</title>
-        <link rel="icon" href={`${basePath}/favicon.ico`} />
+      <link rel="icon" href={`${basePath}/favicon.ico`} />
       </Head>
 
       <Header />
@@ -126,6 +126,9 @@ export default function LLMDemo() {
         <h1 className={styles.title}>
           LLM.
         </h1>
+        <p className={styles.description}>
+          Using a quantized Llama 3.2 with 1B parameter deployed on HuggingFace Free spaces to summarize random wikipedia articles.
+        </p>
 
         <div className={styles.subframe}>
           <h2>Random Wikipedia Article</h2>
