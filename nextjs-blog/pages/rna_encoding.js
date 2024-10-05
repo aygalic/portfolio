@@ -43,7 +43,7 @@ export default function Home() {
 
         <h2>Results</h2>
 
-        <iframe src="https://aygalic.github.io/biosequence_encoding/pca_animation.html" title="description" className={styles.subframe}></iframe>
+        <iframe src="https://aygalic.github.io/biosequence_encoding/pca_animation.html" title="description" className={styles.subframe_tall}></iframe>
 
         <p className={styles.text}>
           Each point correspond to the patient representation through the encoder at different steps of the training process.

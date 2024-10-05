@@ -98,10 +98,23 @@
 
 .subframe {
   width: 80vw;
-  height: 45vw; /* 16:9 aspect ratio */
+
   max-width: 80%;
-  margin: 0 auto;
+  margin: 3vw auto;
   display: block;
+}
+.subframe_tall {
+  width: 80vw;
+  height: 45vw;
+  max-width: 80%;
+  margin: 3vw auto;
+  display: block;
+}
+
+.wikipedia {
+  width: 60vw;
+  height: 45vw; /* 16:9 aspect ratio */
+  max-width: 100%;
 }
 
 .logoContainer {

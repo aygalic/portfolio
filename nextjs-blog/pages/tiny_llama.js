@@ -127,30 +127,22 @@ export default function LLMDemo() {
           LLM.
         </h1>
 
-        <div  >
-          <div >
+        <div className={styles.subframe}>
+          <h2>Random Wikipedia Article</h2>
+          <button onClick={fetchRandomArticle}>
+            New Article
+          </button>
+          {loading ? (
             <div >
-              <h2>Random Wikipedia Article</h2>
-              <button 
-                onClick={fetchRandomArticle}
-              >
-                New Article
-              </button>
-            </div>
-            <div>
-              {loading ? (
-                <div className={styles.subframe}>
 
-                </div>
-              ) : (
-                <iframe 
-                  src={articleUrl} 
-                  className={styles.subframe}
-                  title="Random Wikipedia Article"
-                />
-              )}
             </div>
-          </div>
+          ) : (
+            <iframe 
+              src={articleUrl} 
+              className={styles.wikipedia}
+              title="Random Wikipedia Article"
+            />
+          )}
         </div>
 
         <div className={styles.subframe}>
@@ -158,25 +150,21 @@ export default function LLMDemo() {
           <div>
             {loading ? 'Loading...' : articleContent}
           </div>
-          <button 
-            onClick={handleSummarize}
-            disabled={loading || summarizing}
-            >
+        </div>
+          
+        <div className={styles.subframe}>
+          <button onClick={handleSummarize} disabled={loading || summarizing} >
             {summarizing ? 'Summarizing...' : 'Summarize with LLM'}
           </button>
-        </div>
-        <br/>
-        <br/>
-        <br/>
-
-        {llmSummary && (
-          <div className={styles.subframe}>
-            <h3 >LLM Summary</h3>
+          {llmSummary && (
             <div>
-              {llmSummary}
+              <h3 >LLM Summary</h3>
+              <div>
+                {llmSummary}
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </main>
 
       <Footer />
