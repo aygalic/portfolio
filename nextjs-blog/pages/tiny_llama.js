@@ -147,11 +147,12 @@ export default function LLMDemo() {
             />
           )}
         </div>
-
-        <div className={styles.subframe}>
-          <h3>Article Content</h3>
-          <div>
-            {loading ? 'Loading...' : articleContent}
+        <div className={styles.hidden} >
+          <div className={styles.subframe} >
+            <h3>Article Content</h3>
+            <div>
+              {loading ? 'Loading...' : articleContent}
+            </div>
           </div>
         </div>
           
