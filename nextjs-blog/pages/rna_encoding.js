@@ -26,11 +26,14 @@ export default function Home() {
         </p>
 
         <h2>Background</h2>
-        <p className={styles.text}>
-          Transcriptomic (RNAseq) data is very high dimensional and difficult to deal with using classical statistical techniques.
-          Autoencoder, a kind of neural network that focuses on reconstructing the input through a bottleneck have been of tremendous help tackling this issue.
-          They enable us to work with smaller representations, enabling subsequent stratification, inference and visualizations.
-        </p>
+        <div className={styles.text}>
+          <p >
+            Transcriptomic (RNAseq) data is very high dimensional and difficult to deal with using classical statistical techniques.
+            Autoencoder, a kind of neural network that focuses on reconstructing the input through a bottleneck have been of tremendous help tackling this issue.
+            They enable us to work with smaller representations, enabling subsequent stratification, inference and visualizations.
+          </p>
+
+        </div>
 
 
         <h2>Method</h2>
