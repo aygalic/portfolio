@@ -130,10 +130,10 @@ export default function LLMDemo() {
         <p className={styles.text}>
           Using a quantized Llama 3.2 with 1B parameters.
           This demo simply summarize random wikipedia articles.
-          The model Has been quantized using <a href='https://github.com/ggerganov/llama.cpp'>llama.cpp</a>.
+          In order to meet the requirement of file size for git-lfs, the model Has been quantized using <a href='https://github.com/ggerganov/llama.cpp'>llama.cpp</a>, reducing its size to ~700MB.
           The model was then deployed on <a href="https://huggingface.co/spaces/aygalic/tiny-llama">Hugging Face Spaces</a> through github action.
           <br/>
-          The performance are quite poor since it is running for free on 2 vCPU cores.
+          Despite its relatively small size the performance are quite poor since the model is running (for free) on 2 vCPU cores.
           <br/>
           You can find the code for the API and quantization script on <a href="https://github.com/aygalic/llama-summarizer">github</a> as well as all the machinery for hugging face deployment.
         </p>
