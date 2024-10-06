@@ -124,10 +124,18 @@ export default function LLMDemo() {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          LLM.
+          Lightest LLM implementation.
         </h1>
-        <p className={styles.description}>
-          Using a quantized Llama 3.2 with 1B parameter deployed on HuggingFace Free spaces to summarize random wikipedia articles.
+        Built with Llama
+        <p className={styles.text}>
+          Using a quantized Llama 3.2 with 1B parameters.
+          This demo simply summarize random wikipedia articles.
+          The model Has been quantized using <a href='https://github.com/ggerganov/llama.cpp'>llama.cpp</a>.
+          The model was then deployed on <a href="https://huggingface.co/spaces/aygalic/tiny-llama">Hugging Face Spaces</a> through github action.
+          <br/>
+          The performance are quite poor since it is running for free on 2 vCPU cores.
+          <br/>
+          You can find the code for the API and quantization script on <a href="https://github.com/aygalic/llama-summarizer">github</a> as well as all the machinery for hugging face deployment.
         </p>
 
         <div className={styles.subframe}>
@@ -135,6 +143,8 @@ export default function LLMDemo() {
           <button onClick={fetchRandomArticle}>
             New Article
           </button>
+          <br/>
+
           {loading ? (
             <div >
 
