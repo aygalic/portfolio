@@ -124,7 +124,7 @@ export default function LLMDemo() {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Lightest LLM implementation.
+          Minimal LLM implementation.
         </h1>
         Built with Llama
         <p className={styles.text}>
