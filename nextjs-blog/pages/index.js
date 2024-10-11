@@ -49,17 +49,20 @@ export default function Home() {
             <h3>My first peer reviewed paper! &rarr;</h3>
             <p>Identification of Molecular Biomarkers for Sjögren’s Disease Stratification via a Deep Learning Foundation Model Dedicated to Immune-Mediated and Inflammatory Disease.</p>
           </a>
-          <a href="https://hdl.handle.net/10589/214686" className={styles.card}>
-            <h3>My Thesis &rarr;</h3>
-            <p>Genetic algorithm-driven auto-encoders: unraveling complex patterns in Parkinson's and breast cancer data</p>
+          
+          <a href={`${basePath}/tiny_llama`} className={styles.card}>
+            <h3> ★ Quantizing LLM to make a super lightweight interface &rarr;</h3>
+            <p>Using Llama 3.2 1B with quantization to summarize wikipedia article.</p>
           </a>
+
           <a href={`${basePath}/rna_encoding`} className={styles.card}>
             <h3> ★ Machine Learning applied to Transcriptomic data &rarr;</h3>
             <p>Evolution of latent representation of BRCA data through encoder over the training procedure.</p>
           </a>
-          <a href={`${basePath}/tiny_llama`} className={styles.card}>
-            <h3> ★ Quantizing LLM to make a super lightweight interface &rarr;</h3>
-            <p>Using Llama 3.2 1B with quantization to summarize wikipedia article.</p>
+
+          <a href="https://hdl.handle.net/10589/214686" className={styles.card}>
+            <h3>My Thesis &rarr;</h3>
+            <p>Genetic algorithm-driven auto-encoders: unraveling complex patterns in Parkinson's and breast cancer data</p>
           </a>
 
         </div>
