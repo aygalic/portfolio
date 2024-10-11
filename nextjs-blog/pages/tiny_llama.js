@@ -3,7 +3,7 @@ import Image from 'next/image';
 import styles from '../styles/Home.module.css';
 import { Header } from '../components/header'
 import { Footer } from '../components/footer'
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 async function getRandomWikipediaArticle() {
   const url = "https://en.wikipedia.org/w/api.php";
@@ -87,6 +87,11 @@ export default function LLMDemo() {
   const [loading, setLoading] = useState(true);
   const [summarizing, setSummarizing] = useState(false);
 
+  const [streamingSummary, setStreamingSummary] = useState('');
+  const [isStreaming, setIsStreaming] = useState(false);
+  const streamingApiUrl = 'https://aygalic-tiny-llama.hf.space/llm_on_cpu_stream';
+
+
   useEffect(() => {
     fetchRandomArticle();
   }, []);
@@ -112,6 +117,43 @@ export default function LLMDemo() {
     setLlmSummary(summary || 'Failed to generate summary.');
     setSummarizing(false);
   };
+
+  const handleStreamingSummarize = async () => {
+    setIsStreaming(true);
+    setStreamingSummary('');
+
+    try {
+      const response = await fetch(streamingApiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ item: `Make a very concise summary of the following article: ${articleContent}` }),
+      });
+
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+
+      while (true) {
+        const { value, done } = await reader.read();
+        if (done) break;
+
+        const chunk = decoder.decode(value);
+        const lines = chunk.split('\n\n');
+        for (const line of lines) {
+          if (line.startsWith('data: ')) {
+            const token = line.slice(6);
+            setStreamingSummary(prev => prev + token);
+          }
+        }
+      }
+    } catch (error) {
+      console.error('Error in streaming summary:', error);
+    } finally {
+      setIsStreaming(false);
+    }
+  };
+
 
     return (
     <div className={styles.container}>
@@ -166,19 +208,34 @@ export default function LLMDemo() {
           </div>
         </div>
           
-        <div className={styles.subframe}>
-          <button onClick={handleSummarize} disabled={loading || summarizing} >
-            {summarizing ? 'Summarizing...' : 'Summarize with LLM'}
-          </button>
-          {llmSummary && (
-            <div>
-              <h3 >LLM Summary</h3>
+        <div className={styles.hidden} >
+          <div className={styles.subframe}>
+            <button onClick={handleSummarize} disabled={loading || summarizing} >
+              {summarizing ? 'Summarizing...' : 'Summarize with LLM'}
+            </button>
+            {llmSummary && (
               <div>
-                {llmSummary}
+                <h3 >LLM Summary</h3>
+                <div>
+                  {llmSummary}
+                </div>
               </div>
+            )}
+          </div>
+        </div>
+
+        <div className={styles.subframe}>
+          <button onClick={handleStreamingSummarize} disabled={loading || isStreaming}>
+            {isStreaming ? 'Generating Summary...' : 'Get Summary'}
+          </button>
+          {streamingSummary && (
+            <div>
+              <h3>Streaming LLM Summary</h3>
+              <div>{streamingSummary}</div>
             </div>
           )}
         </div>
+
       </main>
 
       <Footer />
