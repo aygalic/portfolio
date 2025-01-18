@@ -67,7 +67,7 @@ export default function Home() {
 
         </div>
         <p className={styles.description}>
-          If you thinks these projects look nice and you would like to have someone passionate about machine learning in your team, Hire me &rarr;
+          This portfolio is awaiting some big upgrade, stay tuned for more.
         </p>
 
       </main>
